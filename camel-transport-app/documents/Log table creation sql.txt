@@ -1,0 +1,9 @@
+CREATE TABLE `log` (
+  `ID` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `DATE_TIME` timestamp NOT NULL,
+  `CLASS_INFO` varchar(255) NOT NULL,
+  `LEVEL` varchar(50) NOT NULL,
+  `MESSAGE` text,
+  `EXCEPTION_INFO` text,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "73faafe8-8041-402f-852d-5f72fd99fd26",
+		"name": "Camel Transport Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19605054"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/v1/getTransportedApples",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"elmaSayisi\": 2000,\r\n    \"mesafe\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/getTransportedApples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"getTransportedApples"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
