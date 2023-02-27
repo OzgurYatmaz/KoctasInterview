@@ -1,4 +1,7 @@
 package com.koctas.configuration;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -17,18 +20,8 @@ public class ConnectionFactory {
         final ConnectionFactory INSTANCE = new ConnectionFactory();
     }
 
-//    @Value("${spring.datasource.username}")
-//    private String dbUseraName;
-//   
-//    @Value("${spring.datasource.password}")
-//    private String dbPassword;
-//    
-//    @Value("${spring.datasource.url}")
-//    private String dbUrl;
-//    
-//    @Value("${spring.datasource.driver-class-name}")
-//    private String dbDriver;
-    
+
+    private Properties properties;
     private final DataSource dataSource;
 
     private ConnectionFactory() {
@@ -41,13 +34,20 @@ public class ConnectionFactory {
             System.exit(0);
         }
         //------------------------------------
-        Properties properties = new Properties();
-        properties.setProperty("user", "root");
-        properties.setProperty("password", "5703"); 
+        
+        try (InputStream input = new FileInputStream("src/main/resources/application.properties")) {
+            properties = new Properties();
+            properties.load(input);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        Properties properties2 = new Properties();
+        properties2.setProperty("user", properties.getProperty("spring.datasource.username"));
+        properties2.setProperty("password", properties.getProperty("spring.datasource.password")); 
 
         GenericObjectPool<PoolableConnection> pool = new GenericObjectPool<PoolableConnection>();
         DriverManagerConnectionFactory connectionFactory = new DriverManagerConnectionFactory(
-                "jdbc:mysql://localhost:3306/small-apps", properties
+        		properties.getProperty("spring.datasource.url"), properties2
         );
         new PoolableConnectionFactory(
                 connectionFactory, pool, null, "SELECT 1", 3, false, false, Connection.TRANSACTION_READ_COMMITTED
